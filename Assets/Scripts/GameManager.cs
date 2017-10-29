@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
 	public delegate void InitFunc(bool state);
 	public static event InitFunc OnInit;
+	public LevelInit leveInit;
 
 	public static GameManager Get()
 	{
@@ -38,8 +39,7 @@ public class GameManager : MonoBehaviour
 
 	private void Init()
 	{
-		// Load game data
-		
+		GameData.Load();
 	}
 
 	private void OnDestroy()
@@ -64,9 +64,28 @@ public class GameManager : MonoBehaviour
 		{
 			OnInit(true);
 		}
+
+		if (Input.GetKeyDown(KeyCode.L))
+		{
+			GameData.Load();
+		}
+
+		if (Input.GetKeyDown(KeyCode.N))
+		{
+			Debug.Log(Application.dataPath);
+			Debug.Log(Application.persistentDataPath);
+			Debug.Log(Application.streamingAssetsPath);
+			GameData.NewGame();
+		}
+
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			GameData.Save();
+		}
+
 	}
 
-		private void LateUpdate()
+	private void LateUpdate()
 	{
 
 	}
@@ -78,7 +97,7 @@ public class GameManager : MonoBehaviour
 
 	public void OnTriggerEnter(Collider other)
 	{
-		
+
 	}
 
 }
