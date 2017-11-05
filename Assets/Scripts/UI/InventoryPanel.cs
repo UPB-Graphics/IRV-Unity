@@ -5,28 +5,36 @@ using UnityEngine.UI;
 
 public class InventoryPanel : MonoBehaviour {
 
+	private static InventoryPanel Instance;
 	public RectTransform rootElement;
 	public InventoryEntry itemPrefab;
-	private List<InventoryItem> items = new List<InventoryItem>();
+	private List<InventoryEntry> entries = new List<InventoryEntry>();
 
 	// Use this for initialization
 	void Start ()
 	{
-		// list of InventorItems
-		items.Add(new InventoryItem(1, 10, "Sword of...", "Legendary something"));
-		items.Add(new InventoryItem(2, 5, "Armor", "ASidgoiasd"));
-		items.Add(new InventoryItem(1, 10, "Boots", "Info"));
-		items.Add(new InventoryItem(1, 10, "Whatever", "adsfhasdfsdf"));
-
-		Init();
+		Instance = this;
+		GameData.OnDataInit(Init);
 	}
 
 	public void Init()
 	{
-		foreach (var item in items)
+		foreach (var entry in entries)
 		{
-			CreateItemInstance(item);
+			Destroy(entry.gameObject);
 		}
+		entries.Clear();
+
+		foreach (var item in GameData.Instance.items)
+		{
+			var entry = CreateItemInstance(item);
+			entries.Add(entry);
+		}
+	}
+
+	public static void Refresh()
+	{
+		Instance.Init();
 	}
 
 	private InventoryEntry CreateItemInstance(InventoryItem item)

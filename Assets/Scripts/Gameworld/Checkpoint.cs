@@ -29,4 +29,14 @@ public class Checkpoint : MonoBehaviour
 	void Update () {
 		
 	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (GameData.Instance.locationID != location)
+		{
+			Debug.Log("TriggerArea");
+			GameData.Instance.locationID = location;
+			GameData.Save();
+		}
+	}
 }

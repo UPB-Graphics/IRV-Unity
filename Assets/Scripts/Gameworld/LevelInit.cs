@@ -19,7 +19,7 @@ public class LevelInit : MonoBehaviour
 		Checkpoint loc;
 		foreach (var location in locations)
 		{
-			if (location.location == (GameLocation)GameData.Instance.locationID)
+			if (location.location == GameData.Instance.locationID)
 			{
 				loc = location;
 				player.transform.position = loc.transform.position + new Vector3(0, 2, 0);
