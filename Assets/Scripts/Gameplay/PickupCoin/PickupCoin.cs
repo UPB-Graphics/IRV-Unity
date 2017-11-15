@@ -6,7 +6,6 @@ using UnityEngine;
 public class PickupCoin : MonoBehaviour
 {
 	public ParticleSystem particles;
-	public AudioSource pickupSource;
 	public float rotateSpeed = 2;
 
 	// Use this for initialization
@@ -21,13 +20,11 @@ public class PickupCoin : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!pickupSource.isPlaying)
-		{
-			UserResources.CollectCoin();
-			GetComponent<MeshRenderer>().enabled = false;
-			particles.Play();
-			pickupSource.Play();
-			Destroy(gameObject, pickupSource.clip.length);
-		}
+		UserResources.CollectCoin();
+		GetComponent<MeshRenderer>().enabled = false;
+		GetComponent<SphereCollider>().enabled = false;
+		particles.Play();
+		AudioManager.PlaySFX(AudioResources.Instance.collect_coin);
+		Destroy(gameObject, particles.main.duration);
 	}
 }

@@ -37,6 +37,7 @@ public class Checkpoint : MonoBehaviour
 			Debug.Log("TriggerArea");
 			GameData.Instance.locationID = location;
 			GameData.Save();
+			AudioManager.PlayAmbientalSound(AudioResources.Instance.ambientalMusic[(int)AmbientalMusic.SaveSound]);
 		}
 	}
 }

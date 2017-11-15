@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
 	private void Init()
 	{
+		AudioManager.Init();
 		GameData.Load();
 	}
 
