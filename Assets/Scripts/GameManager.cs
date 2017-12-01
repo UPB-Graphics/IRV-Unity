@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum GamePlayState
+{
+	Gameplay,
+	GameMenu
+}
+
 public class GameManager : MonoBehaviour
 {
 	private static GameManager Instance;
+
+	public static GamePlayState gameState;
 
 	public delegate void InitFunc(bool state);
 	public static event InitFunc OnInit;
@@ -40,11 +48,28 @@ public class GameManager : MonoBehaviour
 	{
 		AudioManager.Init();
 		GameData.Load();
+		SetGameState(GamePlayState.Gameplay);
 	}
 
 	private void OnDestroy()
 	{
 
+	}
+
+	public static void SetGameState(GamePlayState state)
+	{
+		gameState = state;
+		if (gameState == GamePlayState.GameMenu)
+		{
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.Confined;
+			Cursor.lockState = CursorLockMode.None;
+		}
+		else
+		{
+			Cursor.visible = false;
+			Cursor.lockState = CursorLockMode.Confined;
+		}
 	}
 
 	// Update is called once per frame
