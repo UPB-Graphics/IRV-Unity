@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
 
 	public delegate void InitFunc(bool state);
 	public static event InitFunc OnInit;
-	public LevelInit leveInit;
 
 	public static GameManager Get()
 	{
@@ -84,6 +83,33 @@ public class GameManager : MonoBehaviour
 			GameData.Save();
 		}
 
+		bool ctrl = Input.GetKey(KeyCode.LeftControl);
+
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			if (ctrl)
+			{
+				Debug.Log("Async loading");
+				LevelManager.LoadSceneAsync(0);
+			}
+			else
+			{
+				LevelManager.LoadScene(0);
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.H))
+		{
+			if (ctrl)
+			{
+				Debug.Log("Async loading");
+				LevelManager.LoadSceneAsync(1);
+			}
+			else
+			{
+				LevelManager.LoadScene(1);
+			}
+		}
 	}
 
 	private void LateUpdate()
